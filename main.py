@@ -71,6 +71,8 @@ def main(data_przyj, p):
 
 
 
+
+
 while True:
     nowa_data = (input("Podaj nową datę w formacie rok-mies-dzien godz:min "))
     if nowa_data =="":
@@ -79,6 +81,7 @@ while True:
         main(data_przyj,priorytet)
     else:
         nowa_data = datetime.strptime(nowa_data, "%Y-%m-%d %H:%M")
-
+        priorytet = input("Podaj priorytet naprawy: ")
         data_przyj = nowa_data
         main(data_przyj, priorytet)
+    print()
