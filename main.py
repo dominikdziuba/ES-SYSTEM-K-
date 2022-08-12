@@ -1,5 +1,5 @@
 from datetime import *
-priorytety = ["10","12","24","48","72"]
+priorytety = ["10", "12", "24", "48", "72"]
 rok_biezacy = datetime.now()
 rok_biezacy = int(rok_biezacy.year)
 swieta = [date(2022, 1, 1), date(2022, 1, 6), date(2022, 5, 1), date(2022, 5, 3), date(2022, 8, 15),
@@ -68,20 +68,23 @@ def main(data_przyj, p):
         print("Data zakończenia dla żabki: " + str(czas_zabka))
     else:
         print("Nie ma takiego priorytetu. Spróbuj jeszcze raz.")
-
-
-
-
-
 while True:
-    nowa_data = (input("Podaj nową datę w formacie rok-mies-dzien godz:min "))
-    if nowa_data =="":
-        data_przyj = datetime.now()
-        priorytet = input("Podaj priorytet naprawy: ")
-        main(data_przyj,priorytet)
-    else:
-        nowa_data = datetime.strptime(nowa_data, "%Y-%m-%d %H:%M")
-        priorytet = input("Podaj priorytet naprawy: ")
-        data_przyj = nowa_data
-        main(data_przyj, priorytet)
-    print()
+    try:
+
+        nowa_data = (input("Podaj nową datę w formacie rok-mies-dzien godz:min "))
+        if nowa_data == "":
+            data_przyj = datetime.now()
+            priorytet = input("Podaj priorytet naprawy: ")
+            main(data_przyj, priorytet)
+
+        else:
+            nowa_data = datetime.strptime(nowa_data, "%Y-%m-%d %H:%M")
+            priorytet = input("Podaj priorytet naprawy: ")
+            data_przyj = nowa_data
+            main(data_przyj, priorytet)
+
+    except ValueError:
+        print("Niepoprawny format daty, sprawdź czy nie ma przypadkowej spacji i spróbuj jeszcze raz.")
+    except KeyboardInterrupt as e:
+        print()
+        continue
