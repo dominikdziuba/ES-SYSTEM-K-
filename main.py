@@ -15,16 +15,38 @@ for j in wielkanoc:
     boze_cialo.append(j)
 
 
-def czas_naprawy(data_z, cz, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
-    for i in range(cz):
+def czas_naprawy(data_z, p, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
+    for i in range(p):
         dzien_tyg_z = data_z.isoweekday()
         if dzien_tyg_z == 7 or data_z.date() in swieta or data_z.date() in wielkanoc or data_z.date() in boze_cialo:
             if data_z.hour >=14:
-                data_z +=timedelta(days=1)
-                data_z = data_z.replace(hour=godz_r)
+                if (data_z + timedelta(days= 1)).date() in swieta:
+                    data_z += timedelta(days=1)
+                    data_z = data_z.replace(hour=7)
+                elif (data_z + timedelta(days= 1)).date() in wielkanoc:
+                    data_z += timedelta(days=1)
+                    data_z = data_z.replace(hour=7)
+                elif (data_z + timedelta(days= 1)).date() in boze_cialo:
+                    data_z += timedelta(days=1)
+                    data_z = data_z.replace(hour=7)
+                elif(data_z +timedelta(days=1)).isoweekday()==7:
+                    data_z += timedelta(days=1)
+                    data_z = data_z.replace(hour=7)
+                else:
+                    data_z +=timedelta(days=1)
+                    data_z = data_z.replace(hour=godz_r)
             else:
                 data_z += timedelta(hours=1)
-        elif ((data_z + timedelta(days= 1)).date() in swieta or (data_z + timedelta(days= 1)).date() in wielkanoc or (data_z + timedelta(days= 1)).date() in boze_cialo) and data_z.hour >= godz_z :
+        elif (data_z + timedelta(days= 1)).date() in swieta and data_z.hour >= godz_z:
+            data_z += timedelta(days=1)
+            data_z = data_z.replace(hour=7)
+        elif (data_z + timedelta(days= 1)).date() in wielkanoc and data_z.hour >= godz_z:
+            data_z += timedelta(days=1)
+            data_z = data_z.replace(hour=7)
+        elif (data_z + timedelta(days= 1)).date() in boze_cialo and data_z.hour >= godz_z:
+            data_z += timedelta(days=1)
+            data_z = data_z.replace(hour=7)
+        elif (data_z + timedelta(days=1)).isoweekday()==7 and data_z.hour >= godz_z:
                 data_z +=timedelta(days=1)
                 data_z = data_z.replace(hour=7)
         else:
