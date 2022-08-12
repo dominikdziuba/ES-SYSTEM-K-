@@ -6,6 +6,7 @@ swieta = [date(2022, 1, 1), date(2022, 1, 6), date(2022, 5, 1), date(2022, 5, 3)
           date(2022, 11, 1), date(2022, 11, 11), date(2022, 12, 25), date(2022, 12, 26)]
 for i in range(len(swieta)):
     swieta[i] = swieta[i].replace(year= rok_biezacy)
+    print(swieta[i])
 
 wielkanoc = [date(2022, 4, 18), date(2023, 4, 10), date(2024, 4, 1), date(2025, 4, 21), date(2026, 4, 6),
              date(2027, 3, 29), date(2028, 4, 17), date(2029, 4, 2), date(2030, 4, 22)]
@@ -17,6 +18,7 @@ for j in wielkanoc:
 
 def czas_naprawy(data_z, cz, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
     for i in range(cz):
+        print(data_z)
         dzien_tyg_z = data_z.isoweekday()
         if dzien_tyg_z == 7 or data_z.date() in swieta or data_z.date() in wielkanoc or data_z.date() in boze_cialo:
             if data_z.hour >=14:
@@ -24,7 +26,7 @@ def czas_naprawy(data_z, cz, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
                 data_z = data_z.replace(hour=godz_r)
             else:
                 data_z += timedelta(hours=1)
-        elif (data_z + timedelta(days= 1)).date() in swieta or (data_z + timedelta(days= 1)).date() in wielkanoc or (data_z + timedelta(days= 1)).date() in boze_cialo and data_z.hour >= godz_z :
+        elif ((data_z + timedelta(days= 1)).date() in swieta or (data_z + timedelta(days= 1)).date() in wielkanoc or (data_z + timedelta(days= 1)).date() in boze_cialo) and data_z.hour >= godz_z :
                 data_z +=timedelta(days=1)
                 data_z = data_z.replace(hour=7)
         else:
