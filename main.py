@@ -1,11 +1,11 @@
 from datetime import *
 priorytety = ["10", "12", "24", "48", "72"]
-rok_biezacy = datetime.now()
+rok_biezacy = date.today()
 rok_biezacy = int(rok_biezacy.year)
 swieta = [date(2022, 1, 1), date(2022, 1, 6), date(2022, 5, 1), date(2022, 5, 3), date(2022, 8, 15),
           date(2022, 11, 1), date(2022, 11, 11), date(2022, 12, 25), date(2022, 12, 26)]
-for i in swieta:
-    i = i.replace(year=rok_biezacy)
+for i in range(len(swieta)):
+    swieta[i] = swieta[i].replace(year= rok_biezacy)
 
 wielkanoc = [date(2022, 4, 18), date(2023, 4, 10), date(2024, 4, 1), date(2025, 4, 21), date(2026, 4, 6),
              date(2027, 3, 29), date(2028, 4, 17), date(2029, 4, 2), date(2030, 4, 22)]
@@ -76,12 +76,14 @@ while True:
             data_przyj = datetime.now()
             priorytet = input("Podaj priorytet naprawy: ")
             main(data_przyj, priorytet)
+            print()
 
         else:
             nowa_data = datetime.strptime(nowa_data, "%Y-%m-%d %H:%M")
             priorytet = input("Podaj priorytet naprawy: ")
             data_przyj = nowa_data
             main(data_przyj, priorytet)
+            print()
 
     except ValueError:
         print("Niepoprawny format daty, sprawdź czy nie ma przypadkowej spacji i spróbuj jeszcze raz.")
