@@ -17,7 +17,6 @@ for j in wielkanoc:
 
 def czas_naprawy(data_z, cz, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
     for i in range(cz):
-        print(data_z)
         dzien_tyg_z = data_z.isoweekday()
         if dzien_tyg_z == 7 or data_z.date() in swieta or data_z.date() in wielkanoc or data_z.date() in boze_cialo:
             if data_z.hour >=14:
