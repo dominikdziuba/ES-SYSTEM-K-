@@ -18,14 +18,13 @@ for j in wielkanoc:
 def czas_naprawy(data_z, cz, godz_z, godz_r, swieta, wielkanoc, boze_cialo):
     for i in range(cz):
         dzien_tyg_z = data_z.isoweekday()
-        data_z_2 =data_z + timedelta(days= 1)
         if dzien_tyg_z == 7 or data_z.date() in swieta or data_z.date() in wielkanoc or data_z.date() in boze_cialo:
             if data_z.hour >=14:
                 data_z +=timedelta(days=1)
                 data_z = data_z.replace(hour=godz_r)
             else:
                 data_z += timedelta(hours=1)
-        elif data_z_2 in swieta or data_z_2 in wielkanoc or data_z_2 in boze_cialo and data_z.hour >= godz_z :
+        elif (data_z + timedelta(days= 1)).date() in swieta or (data_z + timedelta(days= 1)).date() in wielkanoc or (data_z + timedelta(days= 1)).date() in boze_cialo and data_z.hour >= godz_z :
                 data_z +=timedelta(days=1)
                 data_z = data_z.replace(hour=7)
         else:
