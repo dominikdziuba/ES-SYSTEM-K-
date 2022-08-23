@@ -8,14 +8,29 @@ def dni_wolne():
               date(2022, 11, 1), date(2022, 11, 11), date(2022, 12, 25), date(2022, 12, 26)]
     for i in range(len(swieta)):
         swieta[i] = swieta[i].replace(year=int(data_przyj.year))
+    a=24
+    if int(data_przyj.year)<2100 and int(data_przyj.year)>=1900:
+        b=5
+    elif int(data_przyj.year) < 2200 and int(data_przyj.year) >=2100:
+        b=6
 
-    wielkanoc = [date(2022, 4, 18), date(2023, 4, 10), date(2024, 4, 1), date(2025, 4, 21), date(2026, 4, 6),
-                 date(2027, 3, 29), date(2028, 4, 17), date(2029, 4, 2), date(2030, 4, 22)]
-    boze_cialo = []
-    for j in wielkanoc:
-        j = j + timedelta(days=59)
-        boze_cialo.append(j)
-    return swieta + wielkanoc + boze_cialo
+    w1 = int(data_przyj.year)%19
+    w2 = int(data_przyj.year)%4
+    w3 = int(data_przyj.year)%7
+    w1 = (19*w1+a)%30
+    w2 = (2*w2+4*w3+6*w1+b)%7
+
+    if w1==29 and w2 == 6:
+        wielkanoc = date(int(data_przyj.year),4,20)
+    elif w1==28 and w2 == 6:
+        wielkanoc = date(int(data_przyj.year),4,19)
+    else:
+        wielkanoc = date(int(data_przyj.year), 3, 22) + timedelta(days=(w1 + w2 + 1))
+
+    boze_cialo = wielkanoc + timedelta(days=59)
+    swieta.append(wielkanoc)
+    swieta.append(boze_cialo)
+    return swieta
 
 
 def czas_naprawy(data_z, p, godz_z, godz_r, dw):
