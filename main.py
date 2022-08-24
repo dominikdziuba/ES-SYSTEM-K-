@@ -107,7 +107,7 @@ def main(data_przyj, p):
                 czas_serwis= czas_serwis - timedelta(days= 1)
                 czas_serwis= czas_serwis.replace(hour=21)
 
-        if (czas_zabka.hour == 7 or czas_zabka.hour == 6) and czas_zabka.minute==0:
+        if (czas_zabka.hour == 7 and czas_zabka.date().isoweekday()==7 or czas_zabka.hour == 6) and czas_zabka.minute==0:
             if ((czas_zabka - timedelta(days=1)).isoweekday()) == 7 or (czas_zabka.date() - timedelta(days=1)) in dw:
                 czas_zabka = czas_zabka - timedelta(days=1)
                 czas_zabka = czas_zabka.replace(hour=15)
