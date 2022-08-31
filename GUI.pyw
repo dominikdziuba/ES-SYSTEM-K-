@@ -3,29 +3,6 @@ from tkinter import *
 from tkinter import messagebox
 priorytety = ["10", "12", "24", "48", "72"]
 
-
-
-
-root = Tk()
-root.geometry("500x330")
-dp_label = Label(root,text="Podaj nową datę w formacie rok-mies-dzien godz:min:")
-dp_label.grid(row=0, column=0)
-e1= Entry(root, width= 20)
-e1.grid(row=0, column=1)
-p_label = Label(root,text="Wybierz priorytet naprawy: ",)
-p_label.grid(row=1, column=0)
-p_lista = Listbox(root, height= 5)
-p_lista.grid(row=1, column=1)
-
-for i in priorytety:
-    p_lista.insert(END,i)
-
-def dzisiaj():
-    teraz = datetime.now().strftime("%Y-%m-%d %H:%M")
-    e1.delete(0,END)
-    e1.insert(0, teraz)
-    return
-
 def dni_wolne(data_przyj):
     swieta = [date(2022, 1, 1), date(2022, 1, 6), date(2022, 5, 1), date(2022, 5, 3), date(2022, 8, 15),
               date(2022, 11, 1), date(2022, 11, 11), date(2022, 12, 25), date(2022, 12, 26)]
@@ -108,21 +85,6 @@ def czas_naprawy(data_z, p, godz_z, godz_r, dw, data_przyj):
                 data_z += timedelta(hours=1)
     return data_z
 
-
-
-przerwa = Label(root)
-przerwa.grid(row=2)
-przerwa2= Label(root)
-przerwa2.grid(row= 4)
-b1 = Button(root,text="Teraz",command=lambda:dzisiaj())
-b1.grid(row=0, column=2)
-
-def getlist(p_lista):
-    values = p_lista.curselection()
-    if values:
-        i = values[0]
-        priorytet = p_lista.get(i)
-    return priorytet
 def format_zabka(czas_zabka, dw):
     if (czas_zabka.hour == 7 and czas_zabka.date().isoweekday() == 7 or czas_zabka.hour == 6) and czas_zabka.minute == 0:
         if ((czas_zabka - timedelta(days=1)).isoweekday()) == 7 or (czas_zabka.date() - timedelta(days=1)) in dw:
@@ -143,19 +105,18 @@ def format_serwis(czas_serwis,dw):
             czas_serwis = czas_serwis.replace(hour=21)
     return czas_serwis
 
-dp2_label = Label(root,text="Data przyjecia:")
-dp2_label.grid(row=6, column=0)
-ds_label = Label(root,text="Data zakończenia dla serwisu:")
-ds_label.grid(row=7, column=0)
-dz_label = Label(root, text="Data zakończenia dla żabki:")
-dz_label.grid(row=8, column=0)
-dp2_text = Text(root, height=1, width=18)
-dp2_text.grid(row=6, column=1)
-ds_text = Text(root, height=1, width=18)
-ds_text.grid(row=7, column=1)
-dz_text = Text(root, height=1, width=18)
-dz_text.grid(row=8,column=1)
+def dzisiaj():
+    teraz = datetime.now().strftime("%Y-%m-%d %H:%M")
+    e1.delete(0,END)
+    e1.insert(0, teraz)
+    return
 
+def getlist(p_lista):
+    values = p_lista.curselection()
+    if values:
+        i = values[0]
+        priorytet = p_lista.get(i)
+    return priorytet
 def oblicz():
     try:
         gl = getlist(p_lista)
@@ -179,6 +140,39 @@ def oblicz():
     dz_text.insert(END,fz.strftime("%Y-%m-%d %H:%M"))
 
 
+root = Tk()
+root.title('Priorytety')
+root.geometry("500x330")
+dp_label = Label(root,text="Podaj nową datę w formacie rok-mies-dzien godz:min:")
+dp_label.grid(row=0, column=0)
+e1= Entry(root, width= 20)
+e1.grid(row=0, column=1)
+p_label = Label(root,text="Wybierz priorytet naprawy: ",)
+p_label.grid(row=1, column=0)
+p_lista = Listbox(root, height= 5)
+p_lista.grid(row=1, column=1)
+
+for i in priorytety:
+    p_lista.insert(END,i)
+
+przerwa = Label(root)
+przerwa.grid(row=2)
+przerwa2= Label(root)
+przerwa2.grid(row= 4)
+b1 = Button(root,text="Teraz",command=lambda:dzisiaj())
+b1.grid(row=0, column=2)
+dp2_label = Label(root,text="Data przyjecia:")
+dp2_label.grid(row=6, column=0)
+ds_label = Label(root,text="Data zakończenia dla serwisu:")
+ds_label.grid(row=7, column=0)
+dz_label = Label(root, text="Data zakończenia dla żabki:")
+dz_label.grid(row=8, column=0)
+dp2_text = Text(root, height=1, width=18)
+dp2_text.grid(row=6, column=1)
+ds_text = Text(root, height=1, width=18)
+ds_text.grid(row=7, column=1)
+dz_text = Text(root, height=1, width=18)
+dz_text.grid(row=8,column=1)
 b2 = Button(root, text="Oblicz", height=3, width=10, command=oblicz)
 b2.grid(row=3, column=1)
 
